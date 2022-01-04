@@ -103,7 +103,7 @@ class Puppy {
 
 /**
  * 变量只会出现在两个地方
- * 类体，方法外
+ * 类体，方法体
  * 
  * 变量初始化
  * 
@@ -113,7 +113,7 @@ class Puppy {
 class VariableCase {
 
 	/*
-	 * - 外部变量/实例变量在方法体之外的非static变量
+	 * - 实例变量在方法体之外的非static变量
 	 * 
 	 * 声明变量
 	 * - 声明时可以不初始化
@@ -133,16 +133,21 @@ class VariableCase {
 	/*
 	 * 静态变量/类变量
 	 * 
-	 * 虽然 int 类型变量不初始化的默认值是0
-	 * 在规范中仍然需要声明变量的同时初始化
+	 * - 在规范中需要声明变量的同时初始化
+	 * - static变量可以改变，但是通常初始化之后不变
+	 * - static变量在作用域内仅保持一份，节省空间
 	 */
 	static int staticVariable = 0;
 
 	/*
 	 * 静态常量
-	 * 被定义后任何地方不允许修改
+	 * - 被定义后任何地方不允许修改
+	 * - 比static变量更严格
+	 * - 声明通常使用全大写命名
+	 * - 常用于表示恒常不变的变量、数字或运算符号
 	 */
 	final static double CONSTANT_PI = 3.14D;
+	
 	
 	/*
 	 * - 外部变量与方法内部同名变量不冲突
@@ -152,6 +157,10 @@ class VariableCase {
 	int i_, j_ = 1;
 	
 	public void method() {
+		
+		// 测试常量不可变更
+//				CONSTANT_PI = 3.1;
+		
 		/*
 		 * - 局部变量，定义在方法体中
 		 */
@@ -159,17 +168,17 @@ class VariableCase {
 		int j;
 		j = 2;
 		
-		System.out.println("方法外的变量，赋值前：this.i_ = " + this.i_ + ", this.j_ = " + this.j_);
+		System.out.println("method 方法外的变量，赋值前：this.i_ = " + this.i_ + ", this.j_ = " + this.j_);
 		
 		int i_ = 6;
-		this.i_ = i_;
-		
 		int j_ = 6;
+		
+		this.i_ = i_;
 		this.j_ = j_;
 		
-		System.out.println("方法外的变量，赋值后：this.i_ = " + this.i_ + ", this.j_ = " + this.j_);
-		System.out.println("方法体内的局部变量：i = " + i + ", j = " + j);
-		System.out.println("方法体内的局部变量：i_ = " + i_ + ", j_ = " + j_);
+		System.out.println("method 方法外的变量，赋值后：this.i_ = " + this.i_ + ", this.j_ = " + this.j_);
+		System.out.println("method 方法体内的局部变量：i_ = " + i_ + ", j_ = " + j_);
+		System.out.println("method 方法体内的局部变量：i = " + i + ", j = " + j);
 		
 	}
 
@@ -185,8 +194,10 @@ class VariableCase {
 		System.out.println();
 		
 		/*
-		 * 静态变量，静态常量可直接调用，或者用类名调用
-		 * 不需要用对象
+		 * 静态变量
+		 * - 静态常量可直接调用，该类域内
+		 * - 或者用类名调用，其他类中
+		 * - 调用不需要用对象
 		 */
 		System.out.println("静态变量：staticVariable = " + staticVariable);
 		System.out.println("静态变量：VariableCase.staticVariable = " + VariableCase.staticVariable);
@@ -198,9 +209,9 @@ class VariableCase {
 }
 
 /**
- * 类型转换
+ * 基本类型转换
  * 
- * @author Sasaki
+ * @author Matthew
  *
  */
 class TypeExchangeCase {
@@ -666,7 +677,7 @@ class Employee {
  * @author Matthew
  *
  */
-class AccessCharacter {
+class AccessCharacterCase {
 
 	private 	int i_prviate;		// OOP建议private属性
 	protected 	int i_protected;	// 通常与OOP的继承相关
@@ -680,11 +691,14 @@ class AccessCharacter {
 		/*
 		 * 当前类中可以自由访问本类的属性
 		 */
-		AccessCharacter ac = new AccessCharacter();
+		AccessCharacterCase ac = new AccessCharacterCase();
 		System.out.println("AccessCharacter i_prviate = " + ac.i_prviate);
 		System.out.println("AccessCharacter i_protected = " + ac.i_protected);
 		System.out.println("AccessCharacter i_default = " + ac.i_default);
 		System.out.println("AccessCharacter i_public = " + ac.i_public);
+		
+		System.out.println("AccessCharacter i = " + ac.i);
+		System.out.println("AccessCharacter i by getter = " + ac.getI());
 		
 	}
 
@@ -700,7 +714,7 @@ class AccessCharacter {
 	}
 }
 
-class SubAccessCharacter {
+class SubAccessCharacterCase {
 	
 	public static void main(String[] args) {
 		
@@ -708,11 +722,11 @@ class SubAccessCharacter {
 		 * 在其他类中创建 AccessCharacter 对象
 		 * 测试访问 AccessCharacter 属性的情况
 		 */
-		AccessCharacter ac = new AccessCharacter();
+		AccessCharacterCase ac = new AccessCharacterCase();
 		
 		/*
-		 * 在其他类可以自由访问 AccessCharacter 的非private属性
-		 * 一定程度上造成了不安全因素，OOP的编程规范是，类的对象设置为private属性
+		 * 在其他类可以自由访问 AccessCharacterCase 的非private属性
+		 * 一定程度上造成了不安全因素，OOP的编程规范是，设置为private属性
 		 * 提供getter/setter方法供其他类访问，这体现了OOP的封装性
 		 * 
 		 * 后续在OOP的继承性中，讨论protected、default的更多情况
@@ -722,6 +736,7 @@ class SubAccessCharacter {
 		System.out.println("SubAccessCharacter i_protected = " + ac.i_protected);
 		System.out.println("SubAccessCharacter i_default = " + ac.i_default);
 		System.out.println("SubAccessCharacter i_public = " + ac.i_public);
+//		System.out.println("SubAccessCharacter i = " + ac.i);
 		System.out.println("SubAccessCharacter i_getter = " + ac.getI());
 		
 	}
