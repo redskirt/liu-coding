@@ -10,11 +10,15 @@ import java.util.Locale;
 
 public class CodingCase { }
 
-class JavaCases { // 类体
+class HelloWorldCase { // 类体
 
 	// 单行注释
 	/*
 	 * 多行注释
+	 */
+	
+	/*
+	 * 回归weqr是weqr枯井 
 	 */
 	
 	/*
@@ -383,11 +387,13 @@ class PrimitiveTypeCase {
 
 /**
  * 运算符
- * 算术*7：+ - * / % ++ --
+ * 1）
+ * 常用赋值*5：= += -= /= %=
  * 关系*6：== != > < >= <=
- * 位*7：& | ^ ~ << >> >>>
+ * 
+ * 2）
  * 逻辑*3：&& || !
- * 赋值*11：= += -= /= %=  
+ * 算术*7：+ - * / % ++ --
  * 
  * @author Matthew
  *
@@ -397,13 +403,62 @@ class OperatingCharacter {
 	public static void main(String[] args) {
 		
 		/*
+		 * 常用赋值运算*5
+		 * = += -= /= %=
+		 * 
+		 * x _= y <=> (x) = x _ y 
+		 */
+		int f_a = 1, // 变量 = 值
+			f_b = 2,
+			f_c = 0;
+		
+		System.out.println("f_a = " + f_a);
+		System.out.println("f_b = " + f_b);
+		System.out.println("f_c = " + f_c);
+		
+		/*
+		 * 普通赋值
+		 */
+		f_c = f_a + f_b;
+		System.out.println("f_c = f_a + b = " + f_c);
+		
+		/*
+		 * f_c += f_a
+		 * f_c = f_c + f_a
+		 */
+		f_c = 0; // 将f_c置0
+		System.out.println("f_c += f_a = " + (f_c += f_a));
+		
+		f_c = 0;
+		System.out.println("f_c -= f_a = " + (f_c -= f_a));
+		
+		f_c = 0;
+		System.out.println("f_c *= f_a = " + (f_c *= f_a));
+	
+		f_c = 0;
+		System.out.println("f_c /= f_a = " + (f_c /= f_a));
+		
+		f_c = 0;
+		System.out.println("f_c %= f_a = " + (f_c %= f_a));
+		
+		System.out.println();
+		/*
 		 * 算术运算
 		 * + - * / % ++ --
+		 * 
+		 * *注意
+		 * / 除法运算用 int 赋值时，仅保留整数部分
+		 * % 取模运算，相当于取余
 		 */
 		int a = 10;
 		int b = 20;
 		int c = 25;
 		int d = 25;
+		
+		System.out.println("a = " + a);
+		System.out.println("b = " + b);
+		System.out.println("c = " + c);
+		System.out.println("d = " + d);
 		System.out.println("a + b = " + (a + b));
 		System.out.println("a - b = " + (a - b));
 		System.out.println("a * b = " + (a * b));
@@ -411,23 +466,10 @@ class OperatingCharacter {
 		System.out.println("b % a = " + (b % a));
 		System.out.println("c % a = " + (c % a));
 
-		/*
-		 * 自增、自减
-		 */
-		System.out.println("a++   = " + a++);
-		System.out.println("a--   = " + a--);
-
-		/*
-		 * 区分 d++ 与 ++d 的不同
-		 * d = d + 1
-		 * d += 1
-		 */
-		System.out.println("d++   = " + d++);
-		System.out.println("++d   = " + ++d);
 		System.out.println();
 		
 		/*
-		 * 自增/减运算与表达式在同时出现时
+		 * 自增/减运算
 		 * 前缀自增/减法 ++a/--a: 先进行自增/减运算，再进行表达式运算
 		 * 后缀自增/减法 a++/a--: 先进行表达式运算，再进行自增/减运算
 		 */
@@ -442,7 +484,7 @@ class OperatingCharacter {
 		 * i = 2
 		 * 2 * plus_i = 4
 		 */
-		System.out.println("plus_i/++i = " + plus_i + ", 2 * ++i = " + 2 * plus_i);
+		System.out.println("plus_i, ++i = " + plus_i + ", 2 * ++i = " + 2 * plus_i);
 		
 		/*
 		 * j = 1
@@ -450,11 +492,17 @@ class OperatingCharacter {
 		 * j = 2
 		 * 2 * j_plust = 2
 		 */
-		System.out.println("j_plus/j++ = " + j_plus + ", 2 * j++ = " + 2 * j_plus);
+		System.out.println("j_plus, j++ = " + j_plus + ", 2 * j++ = " + 2 * j_plus);
 		System.out.println();
 		
 		/*
-		 * 关系运算
+		 * 小作业
+		 * - 自主编写小案例，深入理解不同的赋值运算符
+		 * - 自增/自减运算符，掌握 ++ / -- 过程中的赋值细节
+		 */
+		
+		/*
+		 * 关系运算*6
 		 * == != > < >= <=
 		 */
 		 int e = 10;
@@ -519,41 +567,11 @@ class OperatingCharacter {
 		System.out.println();
 
 		/*
-		 * 赋值运算
-		 * = += -= /= %= <<= >>= &= ^= |=
+		 * 小作业
+		 * - 自主编写小案例，深入理解 & | ! 在复合类型时的结果情况
+		 * 比如 !(2 < 5 | 7 > 4) 的结果
+		 * - 深入理解逻辑短路的情况
 		 */
-		int f_a = 1,
-			f_b = 2,
-			f_c = 0;
-		
-		/*
-		 * 普通赋值
-		 */
-		f_c = f_a + f_b;
-		System.out.println("f_c = f_a + b = " + f_c);
-		
-		/*
-		 * f_c += f_a
-		 * f_c = f_c + f_a
-		 */
-		f_c += f_a;
-		System.out.println("f_c += f_a = " + (f_c += f_a));
-		
-		f_c = 0;
-		f_c -= f_a;
-		System.out.println("f_c -= f_a = " + (f_c -= f_a));
-		
-		f_c = 0;
-		f_c *= f_a;
-		System.out.println("f_c *= f_a = " + f_c);
-	
-		f_c = 0;
-		f_c /= f_a;
-		System.out.println("f_c /= f_a = " + f_c);
-		
-		f_c = 0;
-		f_c %= f_a;
-		System.out.println("f_c %= f_a = " + f_c);
 		
 	}
 }
@@ -743,12 +761,94 @@ class SubAccessCharacterCase {
 }
 
 /**
+ * 非访问修饰符
+ * static	静态的
+ * final	最终的
+ * synchronized 同步的
+ * 
+ * 设计模式中的经典：单例模式
+ * 
+ * @author Matthew
+ *
+ */
+class SingleInstanceCase {
+	
+	/*
+	 * 声明引用变量但不赋值
+	 * 
+	 * static 变量在类加载时被率先加载
+	 * 对象在方法调用时获取，以提高效率
+	 */
+	private static SingleInstanceCase caz;
+	
+	/*
+	 * final 必须在声明同时初始化单例对象
+	 * 比起不使用 final 效率有所下降
+	 */
+	private final static SingleInstanceCase CAZ_FINAL = new SingleInstanceCase();
+	
+	
+	/*
+	 * 构造方法私有化，使得调用者不能自主创建对象
+	 * 对象总是保持单例
+	 */
+	private SingleInstanceCase() {
+		
+	}
+	
+	
+	/*
+	 * 单例方法
+	 * 注意 static 和 synchronized 用途
+	 * 
+	 * static 静态方法，程序中仅有一个副本，共享内存
+	 * synchronized 将该方法加锁为同步模式，在多线程中实现安全，不会创建出多会对象
+	 */
+	public static synchronized SingleInstanceCase getInstance() {
+		if (caz == null)
+			caz = new SingleInstanceCase(); // 注意创建对象的时机，该对象有且仅有一份，称为“单例”
+
+		return caz;
+	}
+	
+	/*
+	 * 方法体的目标方法
+	 */
+	public void targetMethod() {
+		System.out.println("This is a method.");
+	}
+
+
+	public static void main(String[] arguments) {
+
+		/*
+		 * 类外部不再使用 new SingleInstanceCase(); 创建对象
+		 * 构造方法被私有化
+		 */
+		SingleInstanceCase.getInstance().targetMethod();
+	}
+	
+	/*
+	 * static tips
+	 * - 单例模式常用于工具类方法中，不使用时不加载
+	 * - static 定义的数据单元仅有一份
+	 * - static 不能引用 非static
+	 * - 非static 可以引用 static （因为static会在程序初始化时优先加载内存）
+	 * 
+	 * 小作业 
+	 * 手动编写单例模式案例，并体会使用final关键字的异同
+	 * 自行查阅“懒汉单例”与“饿汉单例”并体会它们的区别
+	 */
+	
+}
+
+/**
  * 循环结构 
  * while 
  * do-while 
  * for
- * for( : )
- * for-each
+ * for( : ) 增强for
+ * forEach	Java8
  * 
  * break
  * 
@@ -767,9 +867,6 @@ class LoopCase {
 		int i_1 = 0;
 		while(i_1 <= 5) {
 			System.out.println("while循环打印 i_1 = " + i_1++);
-			
-//			System.out.println(i);
-//			i++;
 		}
 		
 		System.out.println();
@@ -782,7 +879,7 @@ class LoopCase {
 		int i_2 = 0;
 		do {
 			System.out.println("do-while循环打印 i_2 = " + i_2++);
-		} while (i_2 >= 5);
+		} while (i_2 >= 5); // 不满足执行条件但至少打印一次先行步骤
 		
 		System.out.println();
 		
@@ -804,18 +901,41 @@ class LoopCase {
 		while (j <= 10) {
 			System.out.println("while循环打印 j = " + j);
 			j++;
-			if (j == 3) {
-				System.out.println(" j == " + j + ", 时，break");
+			
+			if (j == 3) { // break 经常搭配 if 条件使用
+				System.out.println("j == " + j + ", 时，break");
 				break;
 			}
 		}
 		
 		System.out.println();
+
+		/*
+		 * continue
+		 * 在给定条件下，控制跳出循环一次，继续下一次循环
+		 */
+		int k = 0;
+		while (k <= 10) {
+			k++;
+
+			if (k % 2 == 0) 
+				continue;
+
+			System.out.println("while循环打印 k = " + k);
+		}
+		
+		System.out.println();
+		
+		/*
+		 * Assignment
+		 * - 自主编写案例，对比 break 与 continue 的细节差异
+		 * - 将 while 案例使用 for 循环改写，实现同样的功能
+		 */
 		
 		/*
 		 * for ( : ) 
 		 * - 增强for，JDK1.5后新增功能，常用于打印集合或数组
-		 * - 不关注执行次数，只关注循环过程
+		 * - 不关注执行索引，只关注循环过程
 		 */
 		int[] array = { 0, 1, 2, 3, 4, 5 };
 		
@@ -846,8 +966,14 @@ class LoopCase {
 		
 		// forEach方法与Lambda表达式
 		list.forEach(i -> System.out.println(i));
+		
+		/*
+		 * 小作业
+		 * 使用不同循环模式体会他们的细微差异
+		 */
+	
 	}
-
+	
 }
 
 
@@ -904,11 +1030,13 @@ class ConditionCase {
 		
 		/*
 		 * ? : 三元表达式
-		 * 等于简化 if-else
-		 * 注意 ? : 三元表达式有返回值，可以赋值
-		 * if-else是控制语句，无返回
+		 * - 等于简化 if-else
+		 * - 注意 ? : 三元表达式有返回值，可以赋值
+		 * - if-else是控制语句，不存在返回
 		 */
 		System.out.println((i < 10) ? "i < 10 条件成立" : "i < 10 条件不成立");
+		
+		System.out.println();
 		
 		// 对比j1和j2两种方式赋值
 		boolean j1 = ((i < 10) ? true : false);
@@ -919,14 +1047,16 @@ class ConditionCase {
 			j2 = false;
 		}
 		
+		System.out.println("j1 = " + j1 + ", j2 = " + j2);
+		
 		System.out.println();
 		
 		/*
 		 * switch-case语句
-		 * 条件语句中效率最高
-		 * 特定情况下可以替代if-else
+		 * - 条件语句中效率最高
+		 * - 特定情况下可以替代if-else
 		 */
-		char grade = 'C';
+		char grade = 'C'; // 也可使用数值类型做匹配条件
 		String gradeInfo = "";
 		
 		switch (grade) {
@@ -949,8 +1079,13 @@ class ConditionCase {
 			gradeInfo = "未知";
 		}
 		System.out.println("最终等级是" + gradeInfo);
-		
 	}
+	
+	/*
+	 * Assignment
+	 * 
+	 * 
+	 */
 }
 
 /**
