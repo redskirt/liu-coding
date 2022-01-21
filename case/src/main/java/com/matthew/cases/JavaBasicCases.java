@@ -8,7 +8,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class CodingCase { }
+/**
+ * 编程案例源码 
+ * Java 基础篇
+ * @老刘编程 点赞关注私信获取源码
+ *
+ */
+public class JavaBasicCases { }
 
 class HelloWorldCase { // 类体
 
@@ -1019,11 +1025,11 @@ class ConditionCase {
 		 */
 		System.out.println("if-else-if语句的情况");
 		if (i < 10) {
-			System.out.print("i = " + i + ", i < 10 条件成立");
+			System.out.println("i = " + i + ", i < 10 条件成立");
 		} else if(i == 10) {
-			System.out.print("i = " + i + ", i = 10 条件不成立");
+			System.out.println("i = " + i + ", i = 10 条件不成立");
 		} else {
-			System.out.print("i = " + i + ", i < 10 | i = 10 条件不成立");
+			System.out.println("i = " + i + ", i < 10 | i = 10 条件不成立");
 		}
 		
 		System.out.println();
@@ -1080,12 +1086,6 @@ class ConditionCase {
 		}
 		System.out.println("最终等级是" + gradeInfo);
 	}
-	
-	/*
-	 * Assignment
-	 * 
-	 * 
-	 */
 }
 
 /**
@@ -1125,7 +1125,7 @@ class BoxedType {
 		Character objectChar 	= new Character('C');
 		Float objectFloat 		= new Float(1.23F);
 		Double objectDouble 	= new Double(12.345D);
-		
+
 		System.out.println("objectBoolean = " + objectBoolean);
 		System.out.println("objectByte = " + objectByte);
 		System.out.println("objectShort = " + objectShort);
@@ -1138,17 +1138,23 @@ class BoxedType {
 		System.out.println();
 		
 		/*
-		 * Number 
-		 * Math
-		 * 常用数理常用方法
+		 * 默认 import java.lang.* 不需要声明
+		 * java.lang.Number 
+		 * java.lang.Math
+		 * 
+		 * 常用数理常用工具方法
 		 */
 		Integer i1 = new Integer(1);
-		Integer i2 = 2; // 自动装箱
+		Integer i2 = 2; // 自动装箱，不需要转换
+		Integer i3 = null;
+		
+		System.out.println("包装类可以为空值：" + i3);
+		System.out.println();
 		
 		System.out.println("返回目标类型值：" + i1.doubleValue());
-		System.out.println("与目标值比较大小：" + i2.compareTo(3)); // < -1; > 1; = 0
+		System.out.println("与目标值比较大小：" + i2.compareTo(3)); // 结果判别 < -1; > 1; = 0
 		System.out.println("与目标值比较是否相等：" + i1.equals(1));
-		System.out.println("转化字符串类型：" + i1.toString());
+		System.out.println("转化字符串类型：" + i1.toString()); // OOP中可重写toString方法实现自由打印输出
 		System.out.println();
 		
 		System.out.println("求最小值：" + Math.min(i1, i2));
@@ -1197,7 +1203,7 @@ class ReferenceTypeCase {
 		// String类型的数组引用类型
 		String[] strings = new String[2];
 
-		// 引用兼容类型, Object是所有类的父类
+		// 引用兼容类型, Object是所有类的父类/基类
 		Object objectString = string_1;
 	}
 }
@@ -1300,14 +1306,22 @@ class StringCase {
 		System.out.println("字符在字符串中首次出现的位置：" + string_1.indexOf('r'));
 		System.out.println("字符在字符串中末次出现的位置：" + string_1.lastIndexOf("_"));
 		System.out.println("字符串替换" + string_1.replace("string", "int"));
-		Arrays.asList("1;2;3;4;5;a;b;c;d".split(";")).forEach(string -> System.out.println("分隔字符串：" + string));
+		Arrays.asList("1;2;3;4;5;a;b;c;d".split(";")).forEach(System.out::println); // o -> System.out.println(o)
 		System.out.println("返回从第3个索引开始的子串：" + string_1.substring(3)); // 注意索引从0开始
 		System.out.println("字符串转换大写：" + string_1.toUpperCase());
 		System.out.println("转换为字符串类型：" + new Integer(123).toString()); // toString()方法用于打印输出，经常重写使用
 		System.out.println(" string_1 ".trim());
 		System.out.println("字符串是否包含子串：" + string_1.contains("str"));
 		System.out.println("\"string_1\" 字符串是否为空：" + string_1.isEmpty());
-		System.out.println("\"\" 字符串是否为空：" + "".isEmpty());
+		System.out.println("\"\" 字符串是否为空：" + "".isEmpty()); // ""的长度为0
+		
+		/*
+		 * Assignment
+		 * 自主查询Java API String类中的对象方法，熟练使用这些方法
+		 * url
+		 * 中文 https://www.matools.com/api/java8 
+		 * 英语 https://docs.oracle.com/javase/8/docs/api/?xd_co_f=47c934d9-e663-4eba-819c-b726fc2d0847
+		 */
 		
 	}
 }
@@ -1318,8 +1332,6 @@ class StringCase {
  * - StringBuffer 与 StringBuilder 都操作String本身，提供静态方法，方法基本一致
  * - SringBuilder 非线程安全，同步访问可能导致数据不一致
  * - SringBuilder 效率较高，通常情况使用较多
- * - 二维数组
- * - Arrays 提供方便的数组操作方法
  * 
  * @author Matthew
  *
@@ -1354,27 +1366,30 @@ class StringBufferAndStringBuilderCase {
 		System.out.println(builder);
 		
 		/*
-		 * 小作业：
-		 * 使用 StringBuffer 对象，熟悉相关方法，实现同样的功能
+		 * Assignment
+		 * - 使用 StringBuffer 对象，熟悉相关方法，实现同样的功能
+		 * - 在API中查阅 StringBuilder 与 StringBuffer 的方法并使用
+		 * 
 		 */
 		
 	}
 }
 
 /**
- * 
  * 数组
  * - 存储固定大小的同类型元素
  * - 数组索引从0开始，到length-1
  * - 数组遍历是数组的常规基础操作
- * 
- * @author Matthew
- *
+ * @老刘编程 点赞关注私信获取源码
  */
 class ArrayCase {
-	
 	public static void main(String[] args) {
 		
+		/*
+		 * 创建数据的两种方式
+		 * - array_int_1 创建时不初始化，多用于动态装配数据场景
+		 * - array_int_2 创建时初始化
+		 */
 		int size = 3;
 		Integer[] array_int_1 = new Integer[size];
 		array_int_1[0] = 0;
@@ -1384,11 +1399,12 @@ class ArrayCase {
 		Integer[] array_int_2 = { 1, 101, 201 };
 		
 		/*
+		 * 遍历数组元素是一切操作数组的基础
 		 * 使用 for / for-each 循环遍历数组
 		 * 打印元素，计算总和
 		 */
 		int sum = 0;
-		
+		System.out.println("// 遍历数组 array_int_1 并计算无数和");
 		for (int i = 0; i < array_int_1.length; i++) {
 			sum += array_int_1[i];
 			System.out.println("array_int_[" + i + "] = " + array_int_1[i]);
@@ -1413,16 +1429,17 @@ class ArrayCase {
 		
 		// 创建时直接初始化数组元素
 		String[][] _2DArray_2 = {  //
-				{ "A", "B", "C" }, //
-				{ "D", "E", "F" }, //
-				{ "G", "H", "I" }  //
+				{ "A", "B", "C" }, // 第一行
+				{ "D", "E", "F" }, // 第二行
+				{ "G", "H", "I" }  // 第三行
 		};
+		System.out.println();
 		
-		// 遍历二维数组元素
+		System.out.println("// 遍历二维数组 _2DArray_1 元素");
 		System.out.println("{");
-		for (String[] _Row_i : _2DArray_2) {
+		for (String[] _Row_i : _2DArray_2) { // 遍历行
 			System.out.print("\t{ ");
-			for (String _Column_i : _Row_i) {
+			for (String _Column_i : _Row_i) {//遍历列
 				System.out.print("\"" + _Column_i + "\", ");
 			}
 			System.out.println("}, ");
@@ -1432,28 +1449,41 @@ class ArrayCase {
 		/*
 		 * Arrays 操作数组
 		 */
-		// Lambda表达式操作数组内部
-		Arrays.asList(_2DArray_2).forEach(o -> {
-			String[] _Row_i = o;
-			Arrays.asList(_Row_i).forEach(o_ -> {
-				String _Column_i = o_;
-				System.out.print("\"" + _Column_i + "\", ");
-			});
-		});
+		System.out.println("// Lambda表达式操作 _2DArray_2 数组内部");
+		Arrays.asList(_2DArray_2) 	// 转换为List
+				.forEach(o -> { 	// forEach遍历第一层
+					String[] _Row_i = o;
+					
+					Arrays.asList(_Row_i)	 //
+							.forEach(o_ -> { // forEach遍历第二层
+								String _Column_i = o_;
+								System.out.print("\"" + _Column_i + "\", ");
+							});
+				});
 		System.out.println("\n");
 		
-		Arrays // Lambda表达式遍历数组，最简化打印输出
+		System.out.println("// Lambda表达式遍历 _2DArray_2 数组，最简化打印输出");
+		Arrays					//
 			.asList(_2DArray_2) //
-			.forEach(o -> Arrays.asList(o).forEach(System.out::println));
+			.forEach(o -> 		//
+				Arrays.asList(o).forEach(System.out::println)
+			);
+		System.out.println();
 		
 		/*
 		 * sort()
 		 * - 对数组进行升序排序
 		 */
+		System.out.println("// 使用 Arrays 对数组 array_int_3 升序排序");
 		Integer[] array_int_3 = { 1, 12, 21, 34, 5, 22 };
 		Arrays.sort(array_int_3);
 		Arrays.asList(array_int_3).forEach(System.out::println);
-
+		
+		/*
+		 * Assignment
+		 * - 实践操作数组的方法
+		 * - 实现数组降序排序
+		 */
 	}
 }
 
@@ -1463,27 +1493,25 @@ class ArrayCase {
  * java.util.Date
  * java.util.SimpleDateFormat
  * 
- * @author Matthew
- *
+ * @老刘编程 点赞关注私信获取源码
  */
 class DateAndTime {
 	
 	public static void main(String[] args) {
 		
-		// 获取当前日期时间
+		System.out.println("// 获取当前日期时间");
 		Date date = new Date();
-		System.out.println(date.toString());
+		System.out.println("当前时间标准输出：" + date);
+		System.out.printf(Locale.CHINA, "当前时间中国时区输出：%tc%n\n", date);
 		
 		/*
-		 * 格式化输出日期时间
 		 * 使用Pattern yyyy-MM-dd hh:mm:ss
 		 */
+		System.out.println("// 格式化输出日期时间");
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		System.out.println("现在时间：" + format.format(date) + "\n");
+		System.out.println("yyyy-MM-dd hh:mm:ss 格式化时间：" + format.format(date) + "\n");
 
-		/*
-		 * 使用printf格式化输出
-		 */
+		System.out.println("// 使用 printf 格式化输出");
 		// c 包括全部日期和时间信息
 		System.out.printf("全部日期和时间信息：%tc%n", date);
 		// F "年-月-日"格式
@@ -1496,88 +1524,65 @@ class DateAndTime {
 		System.out.printf("HH:MM:SS格式（24时制）：%tT%n", date);
 		// R "HH:MM"格式（24时制）
 		System.out.printf("HH:MM格式（24时制）：%tR", date);
+		System.out.println("\n");
 		
-		System.out.println();
-		
-		/*
-		 * 格式化输出部分信息
-		 */
-		// b 月份简称
-		String str = String.format(Locale.US, "英文月份简称：%tb", date);
-		System.out.println(str);
-		System.out.printf("本地月份简称：%tb%n", date);
-
-		// B 月份全称
-		str = String.format(Locale.US, "英文月份全称：%tB", date);
-		System.out.println(str);
-		System.out.printf("本地月份全称：%tB%n", date);
-
-		// a 星期简称
-		str = String.format(Locale.US, "英文星期的简称：%ta", date);
-		System.out.println(str);
-
-		// A 星期全称
-		System.out.printf("本地星期的简称：%tA%n", date);
-
-		// C 年前两位
-		System.out.printf("年的前两位数字（不足两位前面补0）：%tC%n", date);
-
-		// y 年后两位
-		System.out.printf("年的后两位数字（不足两位前面补0）：%ty%n", date);
-
-		// j 一年的第几天
-		System.out.printf("一年中的天数（即年的第几天）：%tj%n", date);
-
-		// m 月份
-		System.out.printf("两位数字的月份（不足两位前面补0）：%tm%n", date);
-
-		// d 日（二位，不够补零）
-		System.out.printf("两位数字的日（不足两位前面补0）：%td%n", date);
-
-		// e 日（一位，不补零）
-		System.out.printf("月份的日（前面不补0）：%te", date);
-				
 		try {
-			/*
-			 * 字符串解析为时间
-			 */
+			
+			System.out.println("// 指定标准字符串解析为时间");
 			String dateString = "2021.06.19";
 			SimpleDateFormat format2 = new SimpleDateFormat("yyyy.MM.dd");
-
 			Date resultDate = format2.parse(dateString);
-			System.out.println("\n解析后的日期：" + resultDate.toString() + "\n");
+			System.out.printf(Locale.CHINA, "解析后的日期：%tc%n", resultDate);
+			System.out.println();
 			
-			/*
-			 * 测量时间间隔
-			 */
-			// 获取当前时间毫秒值
-			long timestamp = System.currentTimeMillis();
-			System.out.println(new Date() + "\n");
+			System.out.println("// 简单计算时间间隔");
+			long timestamp = System.currentTimeMillis();// 获取当前时间毫秒值
+			System.out.printf(Locale.CHINA, "取当前时间：%tc%n", new Date());
 			
 			Thread.sleep(1000); // 程序线程休眠1s
-			System.out.println(new Date() + "\n");
+			System.out.printf(Locale.CHINA, "取1s后时间：%tc%n", new Date());
 			long timestamp_ = System.currentTimeMillis();
 			
 			long timeDifference = timestamp_ - timestamp;
-			System.out.println("前后时间差值为：" + timeDifference + "\n");
+			System.out.println("前后时间差值为：" + timeDifference + "毫秒\n");
+			
+			/*
+			 * Assignment
+			 * 在Java API中查询 
+			 * java.util.Date 和 java.util.SimpleDateFormat
+			 * 相关方法并尝试使用
+			 */
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		/*
-		 * 使用java.util.Calendar类操作日历时间
-		 * 实现日期计算
-		 */
-		 // 获取当前日期时间
+	}
+}
+
+/**
+ * 
+ * 使用 java.util.Calendar 类操作日历时间
+ * 实现简单日期计算
+ * 
+ * @老刘编程 点赞关注私信获取源码
+ */
+class CalendarCase {
+	
+	public static void main(String[] args) {
+
+		System.out.println("// 获取当前日历时间");
 		Calendar calendar_1 = Calendar.getInstance();
+		System.out.println("当前日历时间：" + calendar_1 + "\n");
+		
+		System.out.println("// 获取指定日历时间 2021-01-01");
 		Calendar calendar_2 = Calendar.getInstance();
 		calendar_2.set(2021, 1-1 /*参数从0开始，6月参数为6-1*/, 1);
-		System.out.println("当前日历时间：" + calendar_1.toString());
+		System.out.println("指定日历时间：" + calendar_2 + "\n");
 		
-		/*
-		 * 分别用Calendar常量获取日期时间值
-		 */
+		System.out.println("// 时间前后判断");
+		System.out.println(calendar_1.before(calendar_2) + "\n");
+		
+		System.out.println("// 分别用Calendar常量获取日期时间值");
 		// 获得年份
 		int year = calendar_1.get(Calendar.YEAR);
 		System.out.println("year: " + year);
@@ -1607,11 +1612,88 @@ class DateAndTime {
 		System.out.println("day: " + day + "\n");
 		
 		/*
-		 * 小作业
-		 * 在Java API中查询Calendar相关方法
-		 * 并尝试使用方法解决一些日常问题
+		 * Assignment
+		 * 在Java API中查询Calendar相关方法并尝试使用
 		 */
-		System.out.println(calendar_1.before(calendar_2));
-		
 	}
 }
+
+/**
+ * 
+ * 方法 Method
+ * 
+ * - 方法是解决一类问题的步骤组合
+ * - 方法包含于类
+ * - 命名规则：“驼峰原则”，首字母小写，后续单词首字符大写 getPersonInfo()
+ * - 结构：方法修饰符、方法名、参数列表、方法体、返回值（可选）
+ * 
+ * @老刘编程 点赞关注私信获取源码
+ * 
+ */
+class MethodCase {
+	
+	/**
+	 * 无返回方法 void
+	 * @param string
+	 */
+	public static void show(String string) {
+		System.out.println("无参数方法打印：" + string);
+	}
+	
+	/**
+	 * 判断 num1 是否大于 num2
+	 * @param num1
+	 * @param num2
+	 * @return
+	 */
+	public static Boolean isBigger(int num1, int num2) {
+		return num1 > num2;
+	}
+	
+	/**
+	 * 返回 num1 和 num2 最大值
+	 * @param num1
+	 * @param num2
+	 * @return
+	 */
+	public static Integer max(int num1, int num2) {
+		return isBigger(num1, num2) ? num1 : num2;
+	}
+	
+	/**
+	 * 可变参数方法
+	 * 返回一组数 numbers 当中的最大值
+	 * @param numbers
+	 * @return
+	 */
+	public static Integer max(int... numbers) {
+		if (numbers.length == 0) 
+			throw new NullPointerException("没有参数无法比较。");
+		else if (numbers.length == 1)
+			return numbers[0];
+		else {
+			int temp = numbers[0];
+			for (int i = 0; i < numbers.length; i++) {
+				if (isBigger(numbers[i], temp))
+					temp = numbers[i];
+			}
+			return temp;
+		}
+	}
+
+	public static void main(String[] args) {
+		
+		System.out.println("// 调用 isBigger 方法");
+		System.out.println("2 比 1 大：" + isBigger(2, 1) + "\n");
+		
+		System.out.println("// 调用 max 方法");
+		System.out.println("2 和 1 取最大值：" + max(2, 1) + "\n");
+
+		System.out.println("// 调用可变参数方法 max");
+		System.out.println(max(2, 5, 7, 1, -32, 45) + "\n");
+
+		System.out.println("// 调用无返回方法 show");
+		show("Hello!");
+	}
+}
+
