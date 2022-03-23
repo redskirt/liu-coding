@@ -1,0 +1,172 @@
+hadoop-env.sh
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home
+
+core-site.xml
+<configuration>
+    <property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://localhost:9000</value>
+    </property>
+    <property>
+        <name>hadoop.tmp.dir</name>
+        <value>/Users/sasaki/Downloads/hadoop-data</value>
+    </property>
+</configuration>
+
+
+hdfs-site.xml
+<configuration>
+    <property>
+        <name>dfs.replication</name>
+        <value>1</value>
+    </property>
+</configuration>
+
+
+mapred-site.xml
+<configuration>
+    <property>
+        <name>mapreduce.framework.name</name>
+        <value>yarn</value>
+    </property>
+</configuration>
+
+
+yarn-site.xml
+<configuration>
+    <property>
+        <name>yarn.nodemanager.aux-services</name>
+        <value>mapreduce_shuffle</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name>
+        <value>org.apache.hadoop.mapred.ShuffleHandler</value>
+    </property>
+</configuration>
+
+
+启动顺序
+./start-dfs.sh
+./start-yarn.sh
+
+hdfs http://localhost:50070/
+yarn http://localhost:8088/cluster
+
+
+检测服务
+jps
+NameNode
+DataNode
+ResourceManager
+NodeManager
+SecondaryNameNode
+
+
+Run Map-Reduce Jobs
+Run word count example:
+hdfs dfs -mkdir /data
+hdfs dfs -put <file> /data
+yarn jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.1.jar wordcount /data /data-out
+hdfs dfs -cat /data-out/*
+
+
+停止集群
+./stop-dfs.sh
+./stop-yarn.sh
+
+格式化集群
+hadoop namenode -format
+
+解决本地磁盘空间不足导致 unhealthy node 的问题
+yarn-site.xml
+
+<property>
+  <name>yarn.nodemanager.disk-health-checker.max-disk-utilization-per-disk-percentage</name>
+  <value>98.5</value>
+</property>
+
+
+
+Hive安装
+
+hdfs dfs -mkdir /tmp
+hdfs dfs -chmod g+w /tmp
+hdfs dfs -ls /
+
+hdfs dfs -mkdir -p /user/hive/warehouse
+hdfs dfs -chmod g+w /user/hive/warehouse
+hdfs dfs -ls /user/hive
+
+hdfs dfs -copyFromLocal /Users/sasaki/spark-warehouse/t_orc_product /user/hive/warehouse
+
+cd $HIVE_HOME/conf
+cp hive-default.xml.template hive-site.xml
+
+初始化Hive数据库
+
+
+
+   <property>
+      <name>javax.jdo.option.connectionurl</name>
+      <value>jdbc:mysql://localhost/hive?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false</value>
+      <description>metadata is stored in a mysql server</description>
+   </property>
+   <property>
+      <name>javax.jdo.option.connectiondrivername</name>
+      <value>com.mysql.cj.jdbc.Driver</value>
+      <description>mysql jdbc driver class</description>
+   </property>
+      <property>
+      <name>javax.jdo.option.connectionusername</name>
+      <value>root</value>
+      <description>user name for connecting to mysql server</description>
+   </property>
+   <property>
+      <name>javax.jdo.option.connectionpassword</name>
+      <value>12345678</value>
+      <description>password for connecting to mysql server</description>
+   </property>
+
+
+ln -s /usr/share/java/mysql-connector-java.jar $hive_home/lib/mysql-connector-java.jar
+
+$HIVE_HOME/bin/schematool -dbType mysql -initSchema
+
+
+hive配置，以免报错：Relative path in absolute URI: ${system:java.io.tmpdir%7D/$%7Bsystem:user.name%7D
+
+    <name>hive.exec.scratchdir</name>
+    <value>/tmp/hive-${user.name}</value>
+
+    <name>hive.exec.local.scratchdir</name>
+    <value>/tmp/${user.name}</value>
+
+    <name>hive.downloaded.resources.dir</name>
+    <value>/tmp/${user.name}_resources</value>
+
+    <name>hive.scratch.dir.permission</name>
+    <value>733</value>
+
+Hive 调试启动
+hive -hiveconf hive.root.logger=DEBUG,console
+hive -hiveconf hive.root.logger=INFO,console
+
+
+带 hive 启动 spark-shell
+./spark-shell --conf spark.sql.warehouse.dir=hdfs://localhost:9000/user/hive/warehouse/
+
+
+- 测试Sqoop连通
+ sqoop eval \
+  --username root \
+  --password 12345678 \
+  --connect jdbc:mysql://localhost:3306/case \
+  --query "show tables"
+
+- Sqoop解决导入时 HiveConf 未发现，ClassNotFound 的异常
+cp /Applications/apache-hive-2.3.9-bin/lib/hive-exec-2.3.9.jar /Applications/sqoop-1.4.7.bin__hadoop-2.6.0/lib/
+
+
+
+
+
