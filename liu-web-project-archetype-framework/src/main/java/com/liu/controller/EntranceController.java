@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Matthew
  * @description
  */
-@RestController
+@RestController("/main")
 public class EntranceController extends GeneralController {
 
 	@GetMapping("/login")

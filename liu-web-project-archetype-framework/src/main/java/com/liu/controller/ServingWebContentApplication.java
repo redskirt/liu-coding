@@ -9,16 +9,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 
-import com.liu.dao.impl.SourceDaoImpl;
-import com.liu.dao.impl.SpringJDBCApplication;
-import com.liu.pojo.Source;
-
+//import com.liu.dao.impl.SourceDaoImpl;
+//import com.liu.dao.impl.SpringJDBCApplication;
+//import com.liu.pojo.Source;
+	
 @SpringBootApplication
 public class ServingWebContentApplication {
 
     public static void main(String[] args) {
     	
-        SpringApplication.run(ServingWebContentApplication.class, args);
+    		SpringApplication.run(ServingWebContentApplication.class, args);
+        
     	
 //    	try (AbstractApplicationContext context = new AnnotationConfigApplicationContext(SpringJDBCApplication.class)) {
 //			SourceDaoImpl sourceDao = (SourceDaoImpl) context.getBean("sourceDao");
